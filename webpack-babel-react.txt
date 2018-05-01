@@ -1,3 +1,102 @@
+https://www.robinwieruch.de/minimal-react-webpack-babel-setup/
+
+mkdir minimal-react-boilerplate
+cd minimal-react-boilerplate
+
+1. Generamos el package.json
+> npm init -y
+
+2. Crear la carpeta de distribucion
+The folder will be used to serve the single page application (SPA). Serving the app makes it possible to view it in the 
+browser or host it on an external server to make it accessible for everyone.
+
+The whole served SPA contains only of two files: a .html and a .js file. While the .js file will be generated automatically 
+from all of your JavaScript source files (via Webpack) later, you can already create the .html file manually as an entry point 
+for your application.
+
+mkdir dist
+cd dist
+touch index.html
+
+3. Agregamos contenido al dist/index.html
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>The Minimal React Webpack Babel Setup</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script src="/bundle.js"></script>
+  </body>
+</html>
+
+Two important facts about the content:
+.the bundle.js file will be a generated file by Webpack (1)
+.the id=“app” attribute will help our root React component to find its entry point (2)
+
+
+
+Webpack Setup
+=============
+1. 
+
+npm install --save-dev webpack webpack-dev-server webpack-cli
+
+agregamos en package.json 
+"scripts": {
+  "start": "webpack-dev-server --config ./webpack.config.js --mode development",
+  ...
+},
+
+El script define que vamos a usar webpack-dev-server con el archivo configuracion wepback.config.js.
+La bandera --mode development es la configuracion por defecto que viene en webpack 4, para webpack 3 no es necesario.
+
+
+2. Creamos el archivo de conf wepback.config.js
+
+>touch webpack.config.js
+
+module.exports = {
+  entry: [
+    './src/index.js'
+  ],
+  output: {
+    path: __dirname + '/dist',
+    publicPath: '/',
+    filename: 'bundle.js'
+  },
+  devServer: {
+    contentBase: './dist'
+  }
+};
+
+Roughly the configuration file says that (1) we want to use the src/index.js file as entry point to bundle all of its 
+imported files. (2) The bundled files will result in a bundle.js file which (3) will be generated in our already set up /dist folder. The /dist folder will be used to serve our app.
+
+2. Agregamos index.js
+
+mkdir src
+cd src
+>touch index.js
+
+console.log('My Minimal React Webpack Babel Setup');
+
+Quedando la estrcutura asi :
+- dist
+-- index.html
+- node_modules
+- src
+-- index.js
+- package.json
+- webpack.config.js
+
+3. Probemos starteando
+
+>npm start
+
+
+
 
 Babel Setup
 ===========
@@ -85,5 +184,9 @@ Otra opcion es agregar la configuracion separada en un archivo .babelrc, y debem
 
 React Setup in a Webpack + Babel Project
 ========================================
+Para usar react debemos instalar 2 packages nodos : react y react-dom packages
+
+npm install --save react react-dom
+
 
 

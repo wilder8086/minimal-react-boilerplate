@@ -1,0 +1,88 @@
+New Repositorio desde una PC
+============================
+
+1. Desde laptop lenovo
+> ssh-keygen -t rsa -C "willy8086@gmail.com"
+Nos solicitará una ubicación para la clave, por defecto: C:\Users\Eduardo Zevallos\.ssh y la pass : rodrigo2013
+
+Ahora dentro del sitio de GitHub en “Account Settings” > “SSH and GPG keys” > y boton “New SSH key”, 
+denemos añadir el contenido del fichero id_rsa.pub generado en C:\Users\Eduardo Zevallos\.ssh
+
+por ejemplo :
+
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC/Wf4jV2g8b4W6EeIS7v/OwV9AIm3QbJCbAPVg+YKaifNXH6P9fbP7rjls0J5b1+CKJAB78nrsHQVFzEORZ79KetPK9cBzAQD2IZCWLFtVK61coK8k8aZPPknoAu0urUaise/0chSMs5E+sv5lbWfjSb1k4pbd2DP3Q0Hcr84s4WfAkqMyvmkuhW8lpmWKnOucfy55XbT9SragOHrz2ITfGr0lWVq+miw6uT+PPEyMNY3fEvfx7K/UggO+0UW64sgC4KjqwSYLGxIsE1SYM3WQtdc6jVr2lObzWPE3ccV/aES/nw1Bsfk7h9Prfx6oQxEJFHZm2jZ/2+IxqX9vTog/ willy8086@gmail.com
+
+
+2. comprobar la configuración debemos ejecutar lo siguiente:
+> ssh git@github.com
+
+La salida debería ser algo como esto y poner tu password, aqui en lenovo puse : rodrigo2013
+
+The authenticity of host 'github.com (192.30.253.113)' can't be established.
+RSA key fingerprint is SHA256:nThbg6kXUpJWGl7E1IGOCspRomTxdCARLviKw6E5SY8.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added 'github.com,192.30.253.113' (RSA) to the list of known hosts.
+Enter passphrase for key '/c/Users/Eduardo Zevallos/.ssh/id_rsa':
+PTY allocation request failed on channel 0
+Hi wilder8086! You've successfully authenticated, but GitHub does not provide shell access.
+Connection to github.com closed.
+
+Subir el proyecto:
+=================
+1. Vamos a especificar qe subimos y que no, con .gitignore, creamos el archivo .gitignore
+
+touch .gitignore
+
+vim .gitignore
+
+2. Al tratarse de un proyecto nuevo lo primero es posicionarnos a nivel de la carpeta padre del proyecto,
+Con ello crearemos el repositorio de git, que no es más que el directorio .git en la misma ubicación
+
+git init
+
+3. Añadimos todos los fuentes al repositorio, aquí entrarán en juego las exclusiones,
+
+git add .
+
+4. git status
+
+5. hacemos un commit, 
+git commit -m "Subo la estructura del proyecto react"
+
+6. Asignamos el repositorio remotocreado en github con el mismo nombre del proyecto (deben coincidir)
+ git remote add origin https://github.com/wilder8086/minimal-react-boilerplate
+
+7. Hacemos push
+>git push -u origin master
+
+fatal: HttpRequestException encountered.
+   An error occurred while sending the request.
+Username for 'https://github.com': wilder8086
+Password for 'https://wilder8086@github.com':
+To https://github.com/wilder8086/minimal-react-boilerplate
+ ! [rejected]        master -> master (non-fast-forward)
+error: failed to push some refs to 'https://github.com/wilder8086/minimal-react-boilerplate'
+hint: Updates were rejected because the tip of your current branch is behind
+hint: its remote counterpart. Integrate the remote changes (e.g.
+hint: 'git pull ...') before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+
+8. Este error es porque debemos hacer un pull
+>git pull
+
+There is no tracking information for the current branch.
+Please specify which branch you want to merge with.
+See git-pull(1) for details.
+
+    git pull <remote> <branch>
+
+If you wish to set tracking information for this branch you can do so with:
+
+    git branch --set-upstream-to=origin/<branch> master
+
+	
+9. como es nuestro primer push debemos hacer
+>git push -f origin master
+
+
+
