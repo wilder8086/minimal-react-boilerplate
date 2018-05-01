@@ -1,0 +1,89 @@
+
+Babel Setup
+===========
+
+Instalar:
+npm install --save-dev babel-core babel-loader babel-preset-env
+npm install --save-dev babel-preset-stage-2
+npm install --save-dev babel-preset-react
+
+Ahora configuramos nuestros archivos : package.json y webpack.config.js con respecto a los cambios instalados a babel
+
+package.json
+{
+  "name": "minimal-react-boilerplate",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack-dev-server --config ./webpack.config.js --mode development"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "babel": {
+    "presets": [
+      "env",
+      "react",
+      "stage-2"
+    ]
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.4",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1"
+  }
+}
+
+webpack.config.js
+
+module.exports = {
+  entry: [
+    './src/index.js'
+  ],
+  module: {
+    rules: [
+      {
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        use: ['babel-loader']
+      }
+    ]
+  },
+  resolve: {
+    extensions: ['*', '.js', '.jsx']
+  },
+
+  output: {
+    path: __dirname + '/dist',
+    publicPath: '/',
+    filename: 'bundle.js'
+  },
+  devServer: {
+    contentBase: './dist'
+  }
+};  
+
+Si starteamos la app nada deberia cambiar, excepto que aora podemos usar ECMAScript functionalities para javascript.
+
+opcion:
+Otra opcion es agregar la configuracion separada en un archivo .babelrc, y debemos borrar la configuracion hecha en package.json
+
+.babelrc
+
+{
+  "presets": [
+    "env",
+    "react",
+    "stage-2"
+  ]
+}
+
+
+React Setup in a Webpack + Babel Project
+========================================
+
+
